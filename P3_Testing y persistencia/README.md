@@ -1,5 +1,5 @@
-# P2_API_REST
-Práctica 2  API REST
+# P3_TESTING Y PERSISTENCIA
+Práctica 3 
 ## Endpoints API Carrito
 
 | Método | Ruta                | Body (JSON)                          | Descripción                    | Respuestas |
