@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blanca Studio | Contacto</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="subheader">
+    <nav class="navbar">
+      <div class="logo">Blanca Studio</div>
+      <ul class="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="productos.html">Colección</a></li>
+        <li><a href="carrito.html">Carrito</a></li>
+        <li><a href="contacto.html" class="activo">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="titulo-pagina">
+      <p class="subtitulo">Atención personalizada</p>
+      <h1>Formulario de pedido</h1>
+      <p>Completa tus datos para solicitar información o realizar tu pedido.</p>
+    </div>
+  </header>
+
+  <main class="contenedor">
+    <section class="formulario-box">
+      
+      <div class="form-info">
+        <p class="mini-titulo">Contacto</p>
+        <h2>Blanca Studio</h2>
+        <p>
+          Rellena este formulario para pedir información sobre nuestra colección
+          de joyas o simular una compra de forma sencilla y elegante.
+        </p>
+
+        <div class="caja-contacto">
+          <h3>Información de contacto</h3>
+          <p><strong>Email:</strong> blancastudio@gmail.com</p>
+          <p><strong>Teléfono:</strong> 600 123 456</p>
+          <p><strong>Horario:</strong> Lunes a viernes de 9:00 a 18:00</p>
+        </div>
+      </div>
+
+      <form action="#" method="post" class="formulario">
+        <div class="fila-formulario">
+          <div class="campo">
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Introduce tu nombre" required>
+          </div>
+
+          <div class="campo">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" name="email" placeholder="ejemplo@email.com" required>
+          </div>
+        </div>
+
+        <div class="fila-formulario">
+          <div class="campo">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" placeholder="Introduce tu teléfono">
+          </div>
+        </div>
+
+        <div class="campo">
+          <label for="producto">Joya de interés</label>
+          <select id="producto" name="producto">
+            <option>Colgante Geométrico</option>
+            <option>Anillo Ajustable</option>
+            <option>Pendientes Flor</option>
+            <option>Pulsera Dorada</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="5" placeholder="Escribe aquí tu consulta"></textarea>
+        </div>
+
+        <button type="submit" class="btn oscuro">Enviar solicitud</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Blanca Studio · Tienda online de joyería</p>
+  </footer>
+
+</body>
+</html>
