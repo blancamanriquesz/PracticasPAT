@@ -1,19 +1,16 @@
 package com.blanca.practica.practica2.service;
 
-import com.blanca.practica.practica2.dto.CarritoRequest;
 import com.blanca.practica.practica2.model.Carrito;
 import com.blanca.practica.practica2.repository.CarritoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 public class CarritoService {
 
     private final CarritoRepository repo;
-    private final AtomicLong seq = new AtomicLong(1);
 
     public CarritoService(CarritoRepository repo) {
         this.repo = repo;
@@ -27,36 +24,37 @@ public class CarritoService {
         return repo.findById(idCarrito);
     }
 
-    public Carrito crear(CarritoRequest req) {
-        validar(req);
+    public Carrito crear(Carrito carrito) {
+        validar(carrito);
 
-        Long id = seq.getAndIncrement();
-        Carrito c = new Carrito();
-        c.setIdCarrito(id);
-        c.setIdArticulo(req.getIdArticulo());
-        c.setDescripcion(req.getDescripcion());
-        c.setUnidades(req.getUnidades());
-        c.setPrecioProducto(req.getPrecioProducto());
-        c.setPrecioFinal(calcularPrecioFinal(req.getUnidades(), req.getPrecioProducto()));
+        carrito.setPrecioFinal(calcularPrecioFinal(
+                carrito.getUnidades(),
+                carrito.getPrecioProducto()
+        ));
 
-        return repo.save(c);
+        return repo.save(carrito);
     }
 
-    public Optional<Carrito> actualizar(Long idCarrito, CarritoRequest req) {
-        validar(req);
+    public Optional<Carrito> actualizar(Long idCarrito, Carrito carrito) {
+        validar(carrito);
 
         return repo.findById(idCarrito).map(actual -> {
-            actual.setIdArticulo(req.getIdArticulo());
-            actual.setDescripcion(req.getDescripcion());
-            actual.setUnidades(req.getUnidades());
-            actual.setPrecioProducto(req.getPrecioProducto());
-            actual.setPrecioFinal(calcularPrecioFinal(req.getUnidades(), req.getPrecioProducto()));
+            actual.setIdArticulo(carrito.getIdArticulo());
+            actual.setDescripcion(carrito.getDescripcion());
+            actual.setUnidades(carrito.getUnidades());
+            actual.setPrecioProducto(carrito.getPrecioProducto());
+            actual.setPrecioFinal(calcularPrecioFinal(
+                    carrito.getUnidades(),
+                    carrito.getPrecioProducto()
+            ));
             return repo.save(actual);
         });
     }
 
     public boolean borrar(Long idCarrito) {
-        if (!repo.existsById(idCarrito)) return false;
+        if (!repo.existsById(idCarrito)) {
+            return false;
+        }
         repo.deleteById(idCarrito);
         return true;
     }
@@ -65,14 +63,14 @@ public class CarritoService {
         return unidades * precioProducto;
     }
 
-    private void validar(CarritoRequest req) {
-        if (req.getIdArticulo() == null)
+    private void validar(Carrito carrito) {
+        if (carrito.getIdArticulo() == null)
             throw new IllegalArgumentException("idArticulo es obligatorio");
-        if (req.getDescripcion() == null || req.getDescripcion().isBlank())
+        if (carrito.getDescripcion() == null || carrito.getDescripcion().isBlank())
             throw new IllegalArgumentException("descripcion es obligatoria");
-        if (req.getUnidades() == null || req.getUnidades() <= 0)
+        if (carrito.getUnidades() == null || carrito.getUnidades() <= 0)
             throw new IllegalArgumentException("unidades debe ser > 0");
-        if (req.getPrecioProducto() == null || req.getPrecioProducto() <= 0)
+        if (carrito.getPrecioProducto() == null || carrito.getPrecioProducto() <= 0)
             throw new IllegalArgumentException("precioProducto debe ser > 0");
     }
 }

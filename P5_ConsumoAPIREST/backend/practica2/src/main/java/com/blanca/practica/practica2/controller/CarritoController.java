@@ -1,7 +1,5 @@
 package com.blanca.practica.practica2.controller;
 
-
-import com.blanca.practica.practica2.dto.CarritoRequest;
 import com.blanca.practica.practica2.model.Carrito;
 import com.blanca.practica.practica2.service.CarritoService;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +32,14 @@ public class CarritoController {
     }
 
     @PostMapping
-    public ResponseEntity<Carrito> crear(@RequestBody CarritoRequest req) {
-        Carrito creado = service.crear(req);
+    public ResponseEntity<Carrito> crear(@RequestBody Carrito carrito) {
+        Carrito creado = service.crear(carrito);
         return ResponseEntity.created(URI.create("/api/carritos/" + creado.getIdCarrito())).body(creado);
     }
 
     @PutMapping("/{idCarrito}")
-    public ResponseEntity<Carrito> actualizar(@PathVariable Long idCarrito, @RequestBody CarritoRequest req) {
-        return service.actualizar(idCarrito, req)
+    public ResponseEntity<Carrito> actualizar(@PathVariable Long idCarrito, @RequestBody Carrito carrito) {
+        return service.actualizar(idCarrito, carrito)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -50,15 +48,5 @@ public class CarritoController {
     public ResponseEntity<Void> borrar(@PathVariable Long idCarrito) {
         boolean ok = service.borrar(idCarrito);
         return ok ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> badRequest(IllegalArgumentException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
-    }
-
-    @GetMapping("/ping")
-    public String ping() {
-        return "pong";
     }
 }
